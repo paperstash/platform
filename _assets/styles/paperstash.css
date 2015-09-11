@@ -1,0 +1,40 @@
+html, body {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  font-size: 11pt;
+}
+
+.container {
+  max-width: 768px;
+  padding: 96px 26px;
+  margin: 0 auto;
+}
+
+.branding {
+  color: #f14444;
+  font-family: 'Pacifico', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  font-weight: normal;
+  font-size: 30pt;
+  margin: 0 auto;
+}
+
+.branding:after {
+  content: '\03b2';
+  color: #dddddd;
+  font-size: 16pt;
+  position: relative;
+  left: 8px;
+  top: 2px;
+}
+
+a {
+  color: #f14444;
+}
+
+.footer {
+  color: #999999;
+}
+
+.heart:before {
+  color: #f14444;
+  content: '\2764';
+}
