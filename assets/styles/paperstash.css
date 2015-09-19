@@ -10,11 +10,16 @@ html, body {
 }
 
 .branding {
-  color: #f14444;
+  margin: 0 auto;
+
   font-family: 'Pacifico', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
   font-weight: normal;
   font-size: 30pt;
-  margin: 0 auto;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: #f14444;
 }
 
 .branding:after {
