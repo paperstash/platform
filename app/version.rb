@@ -1,11 +1,6 @@
 module PaperStash
   def self.version
-    @version ||= begin
-      if PaperStash.env.production?
-        File.read("#{PaperStash.root}/VERSION")
-      else
-        `git rev-parse HEAD`
-      end
-    end
+    # We don't have access to the Git repository (in Docker).
+    @version ||= File.read("#{PaperStash.root}/VERSION")
   end
 end
