@@ -4,5 +4,5 @@
 # Secrets
 .ENV
 
-# Junk
+# Build artifacts
 VERSION
