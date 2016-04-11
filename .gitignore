@@ -1,8 +1,33 @@
+#
 # Sublime Text 2/3
+#
+
 *.sublime-workspace
 
-# Secrets
-.ENV
+#
+# Ruby
+#
 
-# Build artifacts
-VERSION
+# Ignore dependencies.
+.bundle
+.cache
+
+# Node
+
+# Ignore packages.
+node_modules/
+
+#
+# Webpack
+#
+
+# Ignore build artifacts.
+public/assets/
+
+#
+# Misc
+#
+
+# Harry Potter and the Chamber of Secrets
+**/*.env.secrets
+**/*.env.*.secrets

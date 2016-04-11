@@ -10,15 +10,15 @@ Sequel.migration do
       column :location, :text
       column :biography, :text
       column :website, :text
+      column :blog, :text
 
-      index :name
       index :email
     end
 
     create_table :users do
       primary_key :id
 
-      column :login, :text, unique: true, null: false
+      column :nickname, :text, null: false
       column :email, :text, unique: true, null: false
       column :password, :text, null: true
 
@@ -27,9 +27,7 @@ Sequel.migration do
       column :verified, :boolean, default: false
       column :contributor, :boolean, default: false
 
-      index :login
-      index :email
-      index :password
+      index [:email, :password]
     end
 
     create_table :sessions do
@@ -37,29 +35,24 @@ Sequel.migration do
 
       foreign_key :user_id, :users, on_delete: :cascade
 
-      column :started_at, :timestamp
-      column :expires_at, :timestamp
-      column :invalidated_at, :timestamp
-
-      index :started_at
-      index :expires_at
-      index :invalidated_at
+      column :started_at, :datetime
+      column :expires_at, :datetime
+      column :invalidated_at, :datetime
     end
 
-    create_table :redeemable_tokens do
+    create_table :tokens do
       primary_key :id
 
       foreign_key :user_id, :users, on_delete: :cascade
 
       column :type, :text
-      column :token, :text
+      column :unguessable, :text
 
-      column :expires_at, :timestamp
-      column :redeemed_at, :timestamp
+      column :invalidated_at, :datetime
+      column :expires_at, :datetime
+      column :redeemed_at, :datetime
 
-      index [:type, :token]
-      index :expires_at
-      index :redeemed_at
+      index [:type, :unguessable]
     end
 
     create_table :papers do
@@ -72,7 +65,7 @@ Sequel.migration do
       column :pdf, :text
 
       foreign_key :uploader_id, :users, on_delete: :set_null
-      column :uploaded_at, :timestamp
+      column :uploaded_at, :datetime
     end
 
     create_table :authors_of_papers do
@@ -103,6 +96,7 @@ Sequel.migration do
 
       foreign_key :user_id, :users, on_delete: :cascade
 
+      column :at, :datetime
       column :action, :text
       column :subject, :hstore
     end

@@ -1,29 +1,23 @@
 require_relative 'application'
 require_relative 'environment'
 
-rackup      DefaultRackup
-
+rackup DefaultRackup
 environment PaperStash.env.to_s
-bind        'tcp://0.0.0.0:80'
-port        80
-workers     PaperStash.config.app.workers
-threads     PaperStash.config.app.threads.min,
-            PaperStash.config.app.threads.max
+bind "tcp://0.0.0.0:#{ENV['PORT'] || 9292}"
+workers (ENV['PUMA_WORKERS'] || 1).to_i
+threads (ENV['PUMA_THREADS_MIN'] || 1).to_i,
+        (ENV['PUMA_THREADS_MAX'] || 1).to_i
 
 preload_app!
 
 before_fork do
-  if PaperStash.env.production?
-    # TODO(mtwilliams): Precompile assets.
-  end
-
-  # Kill our service connections before forking to prevent leakage.
-  PaperStash::Database.disconnect!
+  puts "Killing service connections before forking..."
+  PaperStash.database.disconnect!
 end
 
 on_worker_boot do
-  # Establish our service connections per-worker.
-  PaperStash::Database.connect!
+  puts "Establishing service connections..."
+  PaperStash.database.connect!
 end
 
 # TODO(mtwilliams): Report low-level errors in production.

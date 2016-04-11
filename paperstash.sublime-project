@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": ".",
+
+      "file_exclude_patterns": [
+        "*.sublime-project",
+        "*.sublime-workspace",
+        "Gemfile.lock"
+      ],
+
+      "folder_exclude_patterns": [
+        ".bundle"
+      ]
+    }
+  ]
+}

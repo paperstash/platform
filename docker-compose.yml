@@ -1,0 +1,42 @@
+# TODO(mtwilliams): Use extends for different environments.
+# TODO(mtwilliams): Mount volumes for `app` better, so permissions don't get all fucked up.
+# TODO(mtwilliams): Mount volumes for database.
+
+app:
+  build: .
+  environment:
+    - DOCKER=1
+    - PAPERSTASH_ENV=development
+    - RACK_ENV=development
+    - NODE_ENV=development
+    - HOST=localhost.dev
+    - PORT=80
+    - CDN=cdn.localhost.dev
+    - PUMA_WORKERS=1
+    - PUMA_MIN_THREADS=1
+    - PUMA_MAX_THREADS=1
+    - DATABASE_URL=postgres://paperstash:gJ4c5x0rPJUzQUSHtszweLpW2PeER0Kv@db:5432/e8uuvoq6wybl3tes
+    - DATABASE_CONNECTIONS=1
+    - REDIS_URL=?
+    - ELASTIC_SEARCH_URL=?
+    - S3_HOST=?
+    - S3_BUCKET=?
+    - S3_ACCESS_KEY=?
+    - S3_SECRET_ACCESS_KEY=?
+  volumes:
+    - ./:/app
+  ports:
+    - "80:80"
+  links:
+    - db
+
+db:
+  image: paperstash/db:9.4.1
+  environment:
+    - DB_NAME=e8uuvoq6wybl3tes
+    - DB_USER=paperstash
+    - DB_PASSWORD=gJ4c5x0rPJUzQUSHtszweLpW2PeER0Kv
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+  ports:
+    - "5432"

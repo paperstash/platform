@@ -1,0 +1,5 @@
+# This list is used by git-shortlog to aggregate contributions. It is necessary
+# when either the author's full name is not always written the same way, and/or
+# the same author contributes from different email addresses.
+
+Michael Williams <m.t.williams@live.com> Michael Williams <mike@paperstash.org>
