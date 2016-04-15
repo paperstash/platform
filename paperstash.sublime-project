@@ -5,12 +5,16 @@
 
       "file_exclude_patterns": [
         "*.sublime-project",
-        "*.sublime-workspace",
-        "Gemfile.lock"
+        "*.sublime-workspace"
       ],
 
       "folder_exclude_patterns": [
-        ".bundle"
+        "node_modules",
+        "bower_components",
+
+        "_build",
+        "_deps",
+        "_rel"
       ]
     }
   ]

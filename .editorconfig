@@ -9,7 +9,19 @@ charset = utf-8
 [*.{txt,md}]
 trim_trailing_whitespace = false
 
-[*.rb]
+[*.{ex,exs}]
+indent_style = space
+indent_size = 2
+
+[*.{html,vue}]
+indent_style = space
+indent_size = 2
+
+[*.{css,scss}]
+indent_style = space
+indent_size = 2
+
+[*.{js,coffee,json}]
 indent_style = space
 indent_size = 2
 

@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>PaperStash</title>
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      window.PaperStash = {};
+    </script>
+
+    <div id="spa">
+      <!-- This is where the magic happens! -->
+    </div>
+
+    <link type="text/css" href="/assets/bundle.css" rel="stylesheet">
+    <script type="text/javascript" src="/assets/bundle.js"></script>
+  </body>
+</html>

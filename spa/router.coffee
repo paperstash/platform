@@ -7,7 +7,7 @@ PaperStash.Router.map
     component: require('./components/Home.vue')
 
   '*':
-    name: '404'
-    component: require('./components/404.coffee')
+    name: 'not_found'
+    component: require('./components/NotFound.vue')
 
 module.exports = PaperStash.Router

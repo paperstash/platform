@@ -2,27 +2,29 @@
 # Sublime Text 2/3
 #
 
-*.sublime-workspace
+*.sublime-*
 
 #
-# Ruby
+# Frontend
 #
 
 # Ignore dependencies.
-.bundle
-.cache
-
-# Node
-
-# Ignore packages.
 node_modules/
-
-#
-# Webpack
-#
+bower_components/
 
 # Ignore build artifacts.
-public/assets/
+apps/paperstash_app/priv/www/assets/
+
+#
+# Backend
+#
+
+# Ignore dependencies.
+_deps/
+
+# Ignore build artifacts and releases.
+_build/
+_rel/
 
 #
 # Misc

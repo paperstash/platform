@@ -4,31 +4,18 @@
 
 app:
   build: .
-  environment:
-    - DOCKER=1
-    - PAPERSTASH_ENV=development
-    - RACK_ENV=development
-    - NODE_ENV=development
-    - HOST=localhost.dev
-    - PORT=80
-    - CDN=cdn.localhost.dev
-    - PUMA_WORKERS=1
-    - PUMA_MIN_THREADS=1
-    - PUMA_MAX_THREADS=1
-    - DATABASE_URL=postgres://paperstash:gJ4c5x0rPJUzQUSHtszweLpW2PeER0Kv@db:5432/e8uuvoq6wybl3tes
-    - DATABASE_CONNECTIONS=1
-    - REDIS_URL=?
-    - ELASTIC_SEARCH_URL=?
-    - S3_HOST=?
-    - S3_BUCKET=?
-    - S3_ACCESS_KEY=?
-    - S3_SECRET_ACCESS_KEY=?
-  volumes:
-    - ./:/app
   ports:
-    - "80:80"
+    - "4000:4000"
   links:
     - db
+  environment:
+    - DOCKER=1
+    - MIX_ENV=dev
+    - DATABASE_URL=postgres://paperstash:gJ4c5x0rPJUzQUSHtszweLpW2PeER0Kv@db:5432/e8uuvoq6wybl3tes
+    - ELASTIC_SEARCH_URL=?
+    - REDIS_URL=?
+  volumes:
+    - ./:/app
 
 db:
   image: paperstash/db:9.4.1
@@ -39,4 +26,4 @@ db:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
   ports:
-    - "5432"
+    - 5432

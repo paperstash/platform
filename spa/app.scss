@@ -1,0 +1,9 @@
+@import "~normalize";
+
+// There's really no point in fucking around... we're going to use the sane box
+// model all the things!
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
