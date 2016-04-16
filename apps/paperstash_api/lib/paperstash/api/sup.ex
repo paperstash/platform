@@ -1,4 +1,4 @@
-defmodule PaperStash.App.Supervisor do
+defmodule PaperStash.Api.Supervisor do
   @moduledoc """
   """
 
@@ -13,7 +13,7 @@ defmodule PaperStash.App.Supervisor do
   def init(_) do
     children = [
       # TODO(mtwilliams): Pass-thru options from configuration.
-      Plug.Adapters.Cowboy.child_spec(:http, PaperStash.App.Router, [], [port: 4000])
+      Plug.Adapters.Cowboy.child_spec(:http, PaperStash.Api.Router, [], [port: 4001])
     ]
 
     supervise(children, strategy: :one_for_one)
