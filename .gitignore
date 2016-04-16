@@ -13,7 +13,7 @@ node_modules/
 bower_components/
 
 # Ignore build artifacts.
-apps/paperstash_app/priv/www/assets/
+apps/paperstash_app/priv/static/assets/
 
 #
 # Backend

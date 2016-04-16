@@ -14,7 +14,7 @@ defmodule PaperStash.User do
     # Refer to PaperStash.UserRole for a list of permitted roles.
     field :role, PaperStash.UserRole, default: :user
 
-    # Read this read this http://blog.skylight.io/whats-in-a-name/.
+    # Read this http://blog.skylight.io/whats-in-a-name/.
     field :nickname, :string
 
     # Private email address.

@@ -14,8 +14,8 @@ var BOWER_DIR = __dirname + '/bower_components';
 // We'll want to ignore dependencies a lot.
 var PACKAGES = /(node_modules|bower_components)/;
 
-// We use extract the compiled stylesheets into a seperate bundle. A little
-// cleaner that way. (It also confers some other minor benefits.)
+// We extract the compiled stylesheets into a seperate bundle. A little cleaner
+// that way and it also confers some other minor benefits.
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = [{
@@ -68,8 +68,8 @@ module.exports = [{
   module: {
     loaders: [
       // VueJS, baby!
-      {test: /\.vue$/, loader: "vue-loader"},
-      {test: /\.html$/, loader: "html-loader"},
+      {test: /\.vue$/, exclude: PACKAGES, loader: "vue-loader"},
+      {test: /\.html$/, exclude: PACKAGES, loader: "html-loader"},
       {test: /\.js$/, exclude: PACKAGES, loader: "script-loader"},
       {test: /\.coffee$/, exclude: PACKAGES, loader: "coffee-loader"},
       {test: /\.css$/, exclude: PACKAGES, loader: ExtractTextPlugin.extract("css")},
@@ -79,7 +79,7 @@ module.exports = [{
       {test: /\.(jpe?g|png|gif|svg)/i, loader: "file?name=[path][name].[ext]?[sha1:hash]"},
       {test: /\.(ttf|otf|eot|woff|woff2)/i, loader: "file?name=[path][name].[ext]?[sha1:hash]"},
 
-      // The occasional dependency, like Emoji, include the odd JSON file.
+      // The occasional dependency, like Emoji, includes the odd JSON file.
       {test: /\.json$/, loader: "json-loader"},
     ]
   },
