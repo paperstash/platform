@@ -1,5 +1,3 @@
-require "./app.scss"
-
 window.PaperStash ?= {}
 
 # TODO(mtwilliams): Have PaperStash.App.Spa inject PaperStash.environment?
@@ -20,6 +18,8 @@ Vue.use Vue.Resource
 # Vuex = require 'vuex'
 # Vue.use Vuex
 
+require "./api.coffee"
+
 PaperStash.start = ->
   app = require './components/App.vue'
   router = require './router.coffee'
@@ -27,3 +27,5 @@ PaperStash.start = ->
 
 $(document).ready ->
   PaperStash.start()
+
+require "./app.scss"
