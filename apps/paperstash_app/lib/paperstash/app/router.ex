@@ -11,6 +11,10 @@ defmodule PaperStash.App.Router do
 
   import_routes PaperStash.App.Spa
 
+  import_routes PaperStash.App.Users
+  import_routes PaperStash.App.Sessions
+  import_routes PaperStash.App.OAuth2
+
   # TODO(mtwilliams): Replace with our own handler.
   import_routes Trot.NotFound
 end
