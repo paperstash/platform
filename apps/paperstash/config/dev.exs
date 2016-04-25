@@ -14,10 +14,13 @@ database_from_docker = fn ->
 end
 
 database =
-  if System.get_env("DOCKER") do
-    %{host: "postgres", port: 5432}
-  else
-    database_from_docker.()
+  cond do
+    System.get_env("TRAVIS") ->
+      %{host: "localhost", port: 5432}
+    System.get_env("DOCKER") ->
+      %{host: "postgres", port: 5432}
+    true ->
+      database_from_docker.()
   end
 
 config :paperstash, PaperStash.Repo,
