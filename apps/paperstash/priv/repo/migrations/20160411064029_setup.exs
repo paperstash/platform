@@ -12,7 +12,7 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :email, :string
       add :verified_email_at, :datetime
 
-      add :password, :string
+      add :encrypted_password, :string
 
       add :github, :integer
       add :twitter, :integer

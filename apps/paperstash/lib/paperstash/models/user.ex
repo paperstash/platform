@@ -22,7 +22,8 @@ defmodule PaperStash.User do
     field :verified_email_at, Timex.Ecto.DateTime
 
     # Passwords are stored using BCrypt.
-    field :password, Comeonin.Ecto.Password
+    field :password, :string, virtual: true
+    field :encrypted_password, Comeonin.Ecto.Password
 
     # Social media they've connected or logged in through.
     field :github, :integer
@@ -31,6 +32,25 @@ defmodule PaperStash.User do
     # People as a generic entity are modeled separately, as the vast majority
     # of authors will not be a part of our community. At least initially.
     has_one :personage, PaperStash.Person
+  end
+
+  def create(params) when is_list(params), do: create(Enum.into(params, %{}))
+  def create(params) when is_map(params) do
+    # TODO(mtwilliams): Deduplicate against existing people.
+    # TODO(mtwillaims): Associate with Gravatar, if it exists.
+    params = Map.merge(params, %{personage: %{name: params.name}})
+    %PaperStash.User{}
+    |> cast(params, ~w(nickname email password personage), [])
+    |> put_change(:encrypted_password, params.password)
+    |> validate
+    |> PaperStash.Repo.insert!
+  end
+
+  defp validate(user_or_changeset) do
+    user_or_changeset
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
+    |> validate_length(:password, min: 8)
   end
 end
 

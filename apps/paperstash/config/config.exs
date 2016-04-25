@@ -11,6 +11,9 @@ config :paperstash, PaperStash.Repo,
   encoding: "UTF8",
   log_level: :debug
 
+config :comeonin, Ecto.Password, Comeonin.Bcrypt
+config :comeonin, :bcrypt_log_rounds, 12
+
 config :paperstash, PaperStash.Emailer,
   adapter: Swoosh.Adapters.Local
 
