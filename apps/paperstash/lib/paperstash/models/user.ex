@@ -41,7 +41,8 @@ defmodule PaperStash.User do
     params = Map.merge(params, %{personage: %{name: params.name}})
     %PaperStash.User{}
     |> cast(params, ~w(nickname email password personage), [])
-    |> put_change(:encrypted_password, params.password)
+    # HACK(mtwilliams): Manually cast because Ecto doesn't want to.
+    |> put_change(:encrypted_password, encrypt_password(params.password))
     |> validate
     |> PaperStash.Repo.insert!
   end
@@ -51,6 +52,11 @@ defmodule PaperStash.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> validate_length(:password, min: 8)
+  end
+
+  defp encrypt_password(password) do
+    {:ok, encrypted} = Comeonin.Ecto.Password.cast(password)
+    encrypted
   end
 end
 
