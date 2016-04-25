@@ -32,9 +32,15 @@ defmodule PaperStash.Umbrella.Mixfile do
     end
   end
 
-  defp deps do
-    []
-  end
+  defp deps do [
+    # Testing
+    {:excoveralls, "~> 0.4", only: :test},
+
+    # Documentation
+    {:ex_doc, "~> 0.10", only: :docs},
+    {:earmark, "~> 0.1", only: :docs},
+    {:inch_ex, ">= 0.0.0", only: :docs}
+  ] end
 
   defp aliases do
     [start: &start/1]

@@ -26,6 +26,10 @@ _deps/
 _build/
 _rel/
 
+# Ignore generated documentation and coverage information.
+docs/
+cover/
+
 #
 # Misc
 #
