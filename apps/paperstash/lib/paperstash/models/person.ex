@@ -48,3 +48,14 @@ defmodule PaperStash.Person do
     person_or_changeset
   end
 end
+
+defimpl Poison.Encoder, for: PaperStash.Person do
+  @expose ~w(id portrait name bio organization location website facebook_url
+             twitter_url github_url stackoverflow_url)a
+
+  def encode(person, opts) do
+    person
+    |> Map.take(@expose)
+    |> Poison.Encoder.encode(Keyword.put(opts, :pretty, true))
+  end
+end
