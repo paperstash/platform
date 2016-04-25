@@ -8,9 +8,10 @@ otp_release:
 env:
   global:
     - NODE_ENV=development
-# before_install:
-#   - npm install -g bower
-#   - bower install
+before_install:
+  - mix local.hex --force
+  # - npm install -g bower
+  # - bower install
 install:
   - npm install
 script:
