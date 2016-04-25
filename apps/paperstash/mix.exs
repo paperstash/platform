@@ -16,7 +16,7 @@ defmodule PaperStash.Mixfile do
 
   def application do
     [env: [],
-     applications: ~w{logger timex ecto postgrex}a,
+     applications: ~w{logger timex comeonin ecto postgrex}a,
      mod: {PaperStash, []}]
   end
 
@@ -31,11 +31,16 @@ defmodule PaperStash.Mixfile do
   end
 
   defp deps do [
+    # Basics
     {:decimal, "~> 1.1.0"},
-    {:poison, "~> 1.0"},
+    {:uuid, "~> 1.1"},
     {:timex, ">= 0.0.0"},
     {:timex_ecto, ">= 0.0.0"},
-    {:uuid, "~> 1.1"},
+    {:poison, "~> 1.0"},
+
+    # Encryption
+    {:comeonin, "~> 2.4"},
+    {:comeonin_ecto_password, "~> 0.0.3"},
 
     # Database
     {:ecto, "~> 1.0"},

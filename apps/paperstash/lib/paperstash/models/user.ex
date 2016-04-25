@@ -21,9 +21,8 @@ defmodule PaperStash.User do
     field :email, :string, unique: true
     field :verified_email_at, Timex.Ecto.DateTime
 
-    # TODO(mtwilliams): Provide a custom BCrypt type in line with `Ecto.Type`.
     # Passwords are stored using BCrypt.
-    field :password_hash, :string
+    field :password, Comeonin.Ecto.Password
 
     # Social media they've connected or logged in through.
     field :github, :integer

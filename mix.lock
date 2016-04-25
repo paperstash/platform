@@ -1,6 +1,8 @@
 %{"calliope": {:hex, :calliope, "0.3.0"},
   "certifi": {:hex, :certifi, "0.4.0"},
   "combine": {:hex, :combine, "0.7.0"},
+  "comeonin": {:hex, :comeonin, "2.4.0"},
+  "comeonin_ecto_password": {:hex, :comeonin_ecto_password, "0.0.3"},
   "connection": {:hex, :connection, "1.0.2"},
   "cowboy": {:hex, :cowboy, "1.0.4"},
   "cowlib": {:hex, :cowlib, "1.0.2"},
