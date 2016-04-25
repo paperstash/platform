@@ -1,8 +1,8 @@
-html, body {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-  font-size: 11pt;
+.app {
+  // NOTE(mtwilliams): We use padding rather than margin to prevent internal
+  // margins collapsing.
+  padding-top: 51px;
 }
 
-a {
-  color: #f14444;
+.app__view {
 }

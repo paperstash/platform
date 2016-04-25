@@ -1,6 +1,6 @@
 <template>
-  <h1>PaperStash</h1>
-  <h2>100% more crusty every November.</h2>
+  <div class="home">
+  </div>
 </template>
 
 <script lang="coffee">

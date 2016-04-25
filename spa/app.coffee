@@ -18,7 +18,17 @@ Vue.use Vue.Resource
 # Vuex = require 'vuex'
 # Vue.use Vuex
 
+# HACK(mtwilliams): Setup for cross-origin requests until we move to vue-resource.
+$.ajaxSetup
+  crossDomain: true
+  xhrFields:
+    withCredentials: true
+
 require "./api.coffee"
+
+# Inject global application state.
+PaperStash.state = require './state.coffee'
+PaperStash.state.inject()
 
 PaperStash.start = ->
   app = require './components/App.vue'

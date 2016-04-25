@@ -1,11 +1,9 @@
 <template>
-  <div class="footer">
-  </div>
 </template>
 
 <script lang="coffee">
   Vue = require "vue"
 
   module.exports =
-    name: 'AppFooterComponent'
+    name: 'ActionComponent'
 </script>

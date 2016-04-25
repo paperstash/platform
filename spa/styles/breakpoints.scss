@@ -1,0 +1,29 @@
+// We have three breakpoints:
+//
+//  (1) Mobile, for <= 460px
+//  (2) Tablet, at  <= 768px
+//  (3) Desktop, at <= 992px
+//
+// You should notice we're building desktop first, rather than mobile first.
+// This is based on the assumption that PaperStash will be used more on the
+// desktop than on mobile.
+
+$breakpoints: (
+  'mobile': 460px,
+  'tablet': 768px,
+  'desktop': 992px
+);
+
+$mobile: map-get($breakpoints, 'mobile');
+$tablet: map-get($breakpoints, 'tablet');
+$desktop: map-get($breakpoints, 'desktop');
+
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media only screen and (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "No known breakpoint `#{$breakpoint}`!";
+  }
+}

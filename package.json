@@ -39,7 +39,9 @@
     "vue-router": "latest",
     "vue-loader": "latest",
     "vue-html-loader": "latest",
-    "vue-style-loader": "latest"
+    "vue-style-loader": "latest",
+
+    "susy": "^2.2.12"
   },
 
   "devDependencies": {

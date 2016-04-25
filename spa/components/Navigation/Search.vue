@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="navigation-search">
   </div>
 </template>
 
@@ -7,5 +7,5 @@
   Vue = require "vue"
 
   module.exports =
-    name: 'AppFooterComponent'
+    name: 'AppNavigationSearchComponent'
 </script>
