@@ -29,3 +29,7 @@ config :paperstash, PaperStash.Repo,
   ssl: false,
   connect_timeout: 5000,
   timeout: 5000
+
+config :swoosh,
+  serve_mailbox: true,
+  preview_port: 7777

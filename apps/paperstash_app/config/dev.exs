@@ -1,3 +1,3 @@
-import Mix.Config
+use Mix.Config
 
 []

@@ -5,9 +5,16 @@ defmodule PaperStash.App.Endpoints.Users do
   use Trot.Router
 
   post "/join" do
-    Map.take(conn.body_params, ~w(name nickname email password))
-    |> Enum.map(&({String.to_atom(elem(&1,0)), elem(&1,1)}))
-    |> PaperStash.User.create
+    user =
+      Map.take(conn.body_params, ~w(name nickname email password))
+      |> Enum.map(&({String.to_atom(elem(&1,0)), elem(&1,1)}))
+      |> PaperStash.User.create
+
+    PaperStash.UserEmail.welcome(user)
+    |> PaperStash.Emailer.deliver
+
+    # TODO(mtwilliams): Return a session.
+    {200, %{}}
   end
 
   post "/email/verify" do

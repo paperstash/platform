@@ -16,7 +16,7 @@ defmodule PaperStash.Mixfile do
 
   def application do
     [env: [],
-     applications: ~w{logger timex comeonin ecto postgrex}a,
+     applications: ~w{logger timex comeonin ecto postgrex swoosh}a,
      mod: {PaperStash, []}]
   end
 
@@ -31,6 +31,10 @@ defmodule PaperStash.Mixfile do
   end
 
   defp deps do [
+    # HACK(mtwilliams): We need to depend on Plug so Swoosh's mailbox preview
+    # functionality is compiled in. (Only compiles in if Plug is available.)
+    {:plug, ">= 0.0.0"},
+
     # Basics
     {:decimal, "~> 1.1.0"},
     {:uuid, "~> 1.1"},
@@ -46,6 +50,9 @@ defmodule PaperStash.Mixfile do
     {:ecto, "~> 1.0"},
     {:ecto_enum, "~> 0.3.0"},
     {:postgrex, ">= 0.0.0"},
+
+    # Email
+    {:swoosh, "~> 0.3.0"}
   ] end
 
   defp aliases do

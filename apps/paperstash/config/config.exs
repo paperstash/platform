@@ -11,4 +11,7 @@ config :paperstash, PaperStash.Repo,
   encoding: "UTF8",
   log_level: :debug
 
+config :paperstash, PaperStash.Emailer,
+  adapter: Swoosh.Adapters.Local
+
 import_config "#{Mix.env}.exs"
