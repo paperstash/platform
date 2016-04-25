@@ -1,4 +1,4 @@
-defmodule PaperStash.App.OAuth2 do
+defmodule PaperStash.App.Endpoints.OAuth2 do
   @moduledoc ~S"""
   """
 

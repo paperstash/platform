@@ -1,11 +1,13 @@
-defmodule PaperStash.App.Users do
+defmodule PaperStash.App.Endpoints.Users do
   @moduledoc ~S"""
   """
 
   use Trot.Router
 
   post "/join" do
-    %{}
+    Map.take(conn.body_params, ~w(name nickname email password))
+    |> Enum.map(&({String.to_atom(elem(&1,0)), elem(&1,1)}))
+    |> PaperStash.User.create
   end
 
   post "/email/verify" do

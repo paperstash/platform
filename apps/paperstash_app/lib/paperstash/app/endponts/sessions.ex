@@ -1,10 +1,10 @@
-defmodule PaperStash.App.Sessions do
+defmodule PaperStash.App.Endpoints.Sessions do
   @moduledoc ~S"""
   """
 
   use Trot.Router
 
-  post "/login/via/email" do
+  post "/login/via/credentials" do
     %{}
   end
 
