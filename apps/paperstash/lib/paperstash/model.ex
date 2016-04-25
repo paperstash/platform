@@ -8,6 +8,8 @@ defmodule PaperStash.Model do
   defmacro __using__(_opts) do
     quote do
       use Ecto.Schema
+      import Ecto.Query
+      import Ecto.Changeset
 
       # Use Universally Unique Identifiers (UUIDs) for all the things!
       # Refer to http://stackoverflow.com/questions/30004008.
