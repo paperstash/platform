@@ -13,6 +13,7 @@ defmodule PaperStash.Umbrella.Mixfile do
      homepage_url: "https://paperstash.org/",
      source_url: "https://github.com/paperstash/paperstash",
      apps_path: "apps",
+     build_path: "_build",
      deps_path: "_deps",
      lockfile: "mix.lock",
      build_embedded: Mix.env == :prod,

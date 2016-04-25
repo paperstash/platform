@@ -5,6 +5,7 @@ defmodule PaperStash.Api.Mixfile do
     [app: :paperstash_api,
      version: version,
      elixir: "~> 1.0",
+     build_path: "../../_build",
      deps_path: "../../_deps",
      lockfile: "../../mix.lock",
      build_embedded: Mix.env == :prod,
