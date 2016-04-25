@@ -21,6 +21,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :updated_at, :datetime
     end
 
+    create unique_index :users, [:email]
+
     create table(:people, primary_key: false) do
       add :id, :uuid, primary_key: true
 
