@@ -1,6 +1,6 @@
 <template>
   <div class="join">
-    <div class="join-form">
+    <form class="join-form" @submit.prevent="join">
       <dl class="form-group">
         <dt class="input-label">
           <label for="user[name]" name="user[name]">Name</label>
@@ -50,10 +50,10 @@
       </dl>
       <dl class="form-group">
         <dd>
-          <button type="submit" @click="join">Join</button>
+          <button type="submit">Join</button>
         </dd>
       </dl>
-    </div>
+    </form>
     <div class="join-spiel">
       <h1>You'll love PaperStash</h1>
       <p>It's full of dank memes.</p>
@@ -90,7 +90,6 @@
             console.log ":)"
           .fail(reason) ->
             window.alert reason
-        e.preventDefault()
 
       useAutomaticNickname: (e) ->
         @usingAutomaticNickname = true
