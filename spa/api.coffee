@@ -6,4 +6,9 @@ window.PaperStash.API =
 if PaperStash.environment in ['production']
   PaperStash.API.PROTOCOL = 'https'
 
+if PaperStash.environment in ['development']
+  PaperStash.API.BASE = 'http://localhost:4001'
+  PaperStash.API.HOST = 'localhost'
+  PaperStash.API.PROTOCOL = 'http'
+
 module.exports = PaperStash.API
