@@ -1,4 +1,4 @@
-defmodule PaperStash.Api.UsersEndpoints do
+defmodule PaperStash.Api.Endpoints.Users do
   @moduledoc ~S"""
   """
 
