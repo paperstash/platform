@@ -41,6 +41,6 @@ defmodule PaperStash.App.Endpoints.Sessions do
   end
 
   post "/logout" do
-    post {501, %{error: :not_implemented_yet}}
+    {501, %{error: :not_implemented_yet}}
   end
 end
