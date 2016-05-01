@@ -8,7 +8,7 @@ defmodule PaperStash.UserSerializer do
     PaperStash.Repo.preload(model, ~w(personage)a)
   end
 
-  field :portrait
+  field :portrait, via: &(&1.personage.portrait)
 
   field :name, via: &(&1.personage.name)
   field :nickname
