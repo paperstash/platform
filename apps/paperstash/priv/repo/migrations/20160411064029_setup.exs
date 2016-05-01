@@ -17,8 +17,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :github, :integer
       add :twitter, :integer
 
-      add :created_at, :datetime
-      add :updated_at, :datetime
+      add :created_at, :timestamp
+      add :updated_at, :timestamp
     end
 
     create unique_index :users, [:email]
@@ -42,8 +42,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :github_url, :string
       add :stackoverflow_url, :string
 
-      add :created_at, :datetime
-      add :updated_at, :datetime
+      add :created_at, :timestamp
+      add :updated_at, :timestamp
     end
 
     create table(:tokens, primary_key: false) do
@@ -58,8 +58,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :revoked_at, :datetime
       add :redeemed_at, :datetime
 
-      add :created_at, :datetime
-      add :updated_at, :datetime
+      add :created_at, :timestamp
+      add :updated_at, :timestamp
     end
 
     create table(:follows, primary_key: false) do
@@ -68,8 +68,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :follower_id, references(:users, type: :binary_id)
       add :followee_id, references(:users, type: :binary_id)
 
-      add :created_at, :datetime
-      add :updated_at, :datetime
+      add :created_at, :timestamp
+      add :updated_at, :timestamp
     end
   end
 end
