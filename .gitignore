@@ -27,6 +27,7 @@ _build/
 _rel/
 
 # Ignore generated documentation and coverage information.
+doc/
 docs/
 cover/
 
