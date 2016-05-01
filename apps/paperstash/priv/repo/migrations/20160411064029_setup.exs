@@ -61,5 +61,15 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :created_at, :datetime
       add :updated_at, :datetime
     end
+
+    create table(:follows, primary_key: false) do
+      add :id, :uuid, primary_key: true
+
+      add :follower_id, references(:users, type: :binary_id)
+      add :followee_id, references(:users, type: :binary_id)
+
+      add :created_at, :datetime
+      add :updated_at, :datetime
+    end
   end
 end

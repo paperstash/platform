@@ -32,6 +32,17 @@ defmodule PaperStash.User do
     # People as a generic entity are modeled separately, as the vast majority
     # of authors will not be a part of our community. At least initially.
     has_one :personage, PaperStash.Person
+
+    # Users can subscribe to one another to receive notifications about their
+    # activies, i.e. authoring, contributing, and commenting.
+
+    # Users followed by this user.
+    has_many :follows, PaperStash.Follow, foreign_key: :follower_id
+    has_many :followees, through: [:follows, :followee]
+
+    # Users following this user.
+    has_many :following, PaperStash.Follow, foreign_key: :followee_id
+    has_many :followers, through: [:following, :follower]
   end
 
   def create(params) when is_list(params), do: create(Enum.into(params, %{}))
