@@ -12,7 +12,7 @@ config :paperstash, PaperStash.Repo,
   log_level: :debug
 
 config :comeonin, Ecto.Password, Comeonin.Bcrypt
-config :comeonin, :bcrypt_log_rounds, 12
+config :comeonin, :bcrypt_log_rounds, 14
 
 config :paperstash, PaperStash.Emailer,
   adapter: Swoosh.Adapters.Local
