@@ -1,4 +1,5 @@
-%{"calliope": {:hex, :calliope, "0.3.0"},
+%{"blazon": {:hex, :blazon, "0.1.8"},
+  "calliope": {:hex, :calliope, "0.3.0"},
   "certifi": {:hex, :certifi, "0.4.0"},
   "combine": {:hex, :combine, "0.7.0"},
   "comeonin": {:hex, :comeonin, "2.4.0"},

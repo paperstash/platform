@@ -32,8 +32,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
 
       add :name, :string
       add :bio, :string
-      add :organization, :string
       add :location, :string
+      add :organization, :string
       add :website, :string
 
       add :facebook_url, :string

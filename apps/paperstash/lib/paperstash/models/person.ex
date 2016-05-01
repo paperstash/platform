@@ -17,11 +17,11 @@ defmodule PaperStash.Person do
     # Short biography, garnered from social media if possible.
     field :bio, :string
 
-    # Where they work.
-    field :organization, :string
-
     # Where they live.
     field :location, :string
+
+    # Where they work.
+    field :organization, :string
 
     # Their personal website or blog.
     field :website, :string

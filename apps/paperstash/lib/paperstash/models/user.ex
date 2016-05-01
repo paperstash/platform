@@ -59,14 +59,3 @@ defmodule PaperStash.User do
     encrypted
   end
 end
-
-defimpl Poison.Encoder, for: PaperStash.User do
-  @expose ~w(id role nickname email verified_email_at personage)a
-
-  def encode(user, opts) do
-    user
-    |> Map.take(@expose)
-    |> Poison.Encoder.encode(Keyword.put(opts, :pretty, true))
-  end
-end
-

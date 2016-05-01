@@ -9,7 +9,10 @@ defmodule PaperStash.Api.UsersEndpoints do
   end
 
   get "/v1/users/:id" do
-    {501, ""}
+    case PaperStash.Repo.get(PaperStash.User, id) do
+      nil -> {404, %{error: :does_not_exist}}
+      user -> {200, Blazon.to_map(PaperStash.UserSerializer, user)}
+    end
   end
 
   get "/v1/users/:id/stars" do

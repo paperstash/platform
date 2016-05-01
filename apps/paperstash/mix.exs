@@ -41,6 +41,7 @@ defmodule PaperStash.Mixfile do
     {:timex, ">= 0.0.0"},
     {:timex_ecto, ">= 0.0.0"},
     {:poison, "~> 1.0"},
+    {:blazon, ">= 0.0.0"},
 
     # Encryption
     {:comeonin, "~> 2.4"},
