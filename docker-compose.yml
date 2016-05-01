@@ -1,21 +1,16 @@
-# TODO(mtwilliams): Use extends for different environments.
-# TODO(mtwilliams): Mount volumes for `app` better, so permissions don't get all fucked up.
-# TODO(mtwilliams): Mount volumes for database.
-
-app:
+svc:
   build: .
-  ports:
-    - "4000:4000"
-  links:
-    - db
   environment:
     - DOCKER=1
     - MIX_ENV=dev
-    - DATABASE_URL=postgres://paperstash:gJ4c5x0rPJUzQUSHtszweLpW2PeER0Kv@db:5432/e8uuvoq6wybl3tes
-    - ELASTIC_SEARCH_URL=?
-    - REDIS_URL=?
+    - DATABASE_URL=postgres://walter:d88ewHcWIKRfHDDHPt95FDRXwZgVaEpw@postgres:5432/lwnqegbfsm24w2sq
   volumes:
     - ./:/app
+  ports:
+    - 4000:4000
+    - 4001:4001
+  links:
+    - db:postgres
 
 db:
   image: paperstash/db:9.4.1
@@ -26,4 +21,4 @@ db:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
   ports:
-    - 5432
+    - 5432:5432
