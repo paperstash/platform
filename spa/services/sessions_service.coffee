@@ -15,7 +15,7 @@ class SessionsService
 
   start_via_credentials: (email, password) ->
     @session = $.Deferred()
-    $.post "#{PaperStash.API.BASE}/login/via/credentials", {email: email, password: password}
+    $.post "/login/via/credentials", {email: email, password: password}
       .done (session) =>
         @session.resolve(session)
       .fail () =>
@@ -24,7 +24,7 @@ class SessionsService
 
   start_via_token: (token) ->
     @session = $.Deferred()
-    $.post "#{PaperStash.API.BASE}/login/via/token", {token: token}
+    $.post "/login/via/token", {token: token}
       .done (session) =>
         @session.resolve(session)
       .fail () =>
@@ -33,7 +33,7 @@ class SessionsService
 
   end: () ->
     dfd = $.Deferred()
-    $.post "#{PaperStash.API.BASE}/logout"
+    $.post "/logout"
       .done () =>
         @session = $.Deferred().reject()
         dfd.resolve()

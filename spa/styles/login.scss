@@ -1,0 +1,9 @@
+.login {
+  @include grid;
+  margin: 20px auto;
+}
+
+.login-form {
+  @include span(12 of 12 first);
+}
+

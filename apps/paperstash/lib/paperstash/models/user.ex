@@ -65,6 +65,20 @@ defmodule PaperStash.User do
     |> validate_length(:password, min: 8)
   end
 
+  # SMELL(mtwilliams): We should extract authentication out...
+  def authenticate(email: email, password: password) do
+    case PaperStash.Repo.get_by(PaperStash.User, email: email) do
+      %PaperStash.User{encrypted_password: expected} = user ->
+        if Comeonin.Ecto.Password.valid?(password, expected) do
+          {:ok, user}
+        else
+          {:error, :invalid_password}
+        end
+      _ ->
+        {:error, :invalid_email}
+    end
+  end
+
   defp encrypt_password(password) do
     {:ok, encrypted} = Comeonin.Ecto.Password.cast(password)
     encrypted

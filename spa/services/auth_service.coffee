@@ -4,7 +4,7 @@ class AuthService
   contructor: ->
     this.sync()
 
-  login_with_credentials: (email, password) ->
+  login_via_credentials: (email, password) ->
     SessionsService.start({strategy: 'credentials', email: email, password: password})
 
   login_via_token: (token) ->

@@ -18,18 +18,18 @@ defmodule PaperStash.App.Endpoints.Users do
   end
 
   post "/email/verify" do
-    {501, %{error: :unimplemented}}
+    {501, %{error: :not_implemented_yet}}
   end
 
   post "/email/verify/request" do
-    {501, %{error: :unimplemented}}
+    {501, %{error: :not_implemented_yet}}
   end
 
   post "/password/reset" do
-    {501, %{error: :unimplemented}}
+    {501, %{error: :not_implemented_yet}}
   end
 
   post "/password/reset/request" do
-    {501, %{error: :unimplemented}}
+    {501, %{error: :not_implemented_yet}}
   end
 end
