@@ -2,22 +2,20 @@
 sudo: false
 language: elixir
 elixir:
-  - 1.2.3
+  - 1.4
 otp_release:
-  - 18.2.1
+  - 19
 env:
   global:
     - NODE_ENV=development
 before_install:
   - mix local.hex --force
-  # - npm install -g bower
-  # - bower install
+  - mix local.rebar --force
 install:
-  - npm install
+  - mix do deps.get
 script:
-  - mix do deps.get, deps.compile --all, compile
+  - mix deps.compile --all, compile
   - mix test
-  - webpack --colors
 after_script:
   - MIX_ENV=test mix coveralls.travis
   - mix deps.get --only docs

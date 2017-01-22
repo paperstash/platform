@@ -2,9 +2,13 @@ defmodule PaperStash.Serializer do
   @moduledoc ~S"""
   """
 
-  defmacro __using__(_opts) do
+  defmacro __using__(_options) do
     quote do
       use Blazon.Serializable
+
+      field :type, via: fn (model) ->
+        PaperStash.Reflection.type(model)
+      end
 
       field :id
 

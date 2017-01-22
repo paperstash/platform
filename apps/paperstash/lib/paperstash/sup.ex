@@ -11,7 +11,7 @@ defmodule PaperStash.Supervisor do
   @doc false
   def init(_) do
     children = [
-      supervisor(PaperStash.Repo, [])
+      supervisor(PaperStash.Repository, [])
     ]
 
     supervise(children, strategy: :one_for_one)

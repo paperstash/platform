@@ -1,11 +1,35 @@
-defmodule PaperStash.Repo.Migrations.Setup do
+defmodule PaperStash.Migrations.Setup do
   use Ecto.Migration
 
-  def change do
+  @extensions ~W{
+    pg_stat_statements
+    pgrowlocks
+    pgstattuple
+    pg_freespacemap
+    pg_buffercache
+
+    uuid-ossp
+
+    plpgsql
+
+    pg_trgm
+    fuzzystrmatch
+
+    btree_gin
+    btree_gist
+
+    intarray
+  }
+
+  def up do
+    for extension <- @extensions do
+      execute "CREATE EXTENSION IF NOT EXISTS \"#{extension}\";"
+    end
+
     create table(:users, primary_key: false) do
       add :id, :uuid, primary_key: true
 
-      add :role, :integer
+      add :role, :string
 
       add :nickname, :string
 
@@ -22,6 +46,8 @@ defmodule PaperStash.Repo.Migrations.Setup do
     end
 
     create unique_index :users, [:email]
+    create unique_index :users, [:github]
+    create unique_index :users, [:twitter]
 
     create table(:people, primary_key: false) do
       add :id, :uuid, primary_key: true
@@ -51,7 +77,7 @@ defmodule PaperStash.Repo.Migrations.Setup do
 
       add :owner_id, references(:users, type: :binary_id)
 
-      add :type, :integer
+      add :type, :string
       add :unguessable, :string
 
       add :expires_at, :datetime
@@ -61,6 +87,9 @@ defmodule PaperStash.Repo.Migrations.Setup do
       add :created_at, :timestamp
       add :updated_at, :timestamp
     end
+
+    create index :tokens, [:type]
+    create index :tokens, [:unguessable]
 
     create table(:follows, primary_key: false) do
       add :id, :uuid, primary_key: true

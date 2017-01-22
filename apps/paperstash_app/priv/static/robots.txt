@@ -1,4 +1,0 @@
-# TODO(mtwilliams): Figure out who we need to tell off.
-
-User-agent: *
-Allow: *

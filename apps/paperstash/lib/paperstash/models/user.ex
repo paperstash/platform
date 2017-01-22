@@ -1,8 +1,10 @@
-# TODO(mtwiliams: Fork off EctoEnum to allow storage as strings or integers,
-# then store roles as strings. See https://github.com/gjaldon/ecto_enum/issues/4.
 import EctoEnum, only: [defenum: 2]
 
-defenum PaperStash.UserRole, user: 1, contributor: 2, moderator: 3, admin: 4
+defenum PaperStash.UserRole,
+  user: "user",
+  contributor: "contributor",
+  moderator: "moderator",
+  admin: "admin"
 
 defmodule PaperStash.User do
   @moduledoc ~S"""
@@ -30,7 +32,7 @@ defmodule PaperStash.User do
     field :twitter, :integer
 
     # People as a generic entity are modeled separately, as the vast majority
-    # of authors will not be a part of our community. At least initially.
+    # of authors will not be a part of our community.
     has_one :personage, PaperStash.Person
 
     # Users can subscribe to one another to receive notifications about their
@@ -45,13 +47,16 @@ defmodule PaperStash.User do
     has_many :followers, through: [:following, :follower]
   end
 
-  def create(params) when is_list(params), do: create(Enum.into(params, %{}))
+  @required ~W{nickname email password}a
+  @optional ~W{role}a
+
+  def create(params) when is_list(params), do: create(params |> Map.new)
   def create(params) when is_map(params) do
     # TODO(mtwilliams): Deduplicate against existing people.
     # TODO(mtwillaims): Associate with Gravatar, if it exists.
-    params = Map.merge(params, %{personage: %{name: params.name}})
     %PaperStash.User{}
-    |> cast(params, ~w(nickname email password personage), [])
+    |> cast(params, @required ++ @optional)
+    |> cast_assoc(:personage, required: true)
     # HACK(mtwilliams): Manually cast because Ecto doesn't want to.
     |> put_change(:encrypted_password, encrypt_password(params.password))
     |> validate
@@ -60,6 +65,7 @@ defmodule PaperStash.User do
 
   defp validate(user_or_changeset) do
     user_or_changeset
+    |> validate_required(@required)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
     |> validate_length(:password, min: 8)

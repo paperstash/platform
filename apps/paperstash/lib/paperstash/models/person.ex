@@ -34,9 +34,9 @@ defmodule PaperStash.Person do
     field :stackoverflow_url, :string
   end
 
-  @required ~w(name)
-  @profiles ~w(facebook_url linkedin_url twitter_url github_url stackoverflow_url)
-  @optional ~w(portrait bio organization location website) ++ @profiles
+  @required ~W{name}
+  @profiles ~W{facebook_url linkedin_url twitter_url github_url stackoverflow_url}
+  @optional ~W{portrait bio organization location website} ++ @profiles
 
   def changeset(person_or_changeset, changes \\ :empty) do
     person_or_changeset

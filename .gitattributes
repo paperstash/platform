@@ -1,16 +1,21 @@
 [attr]nif text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
+[attr]erlang text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
 [attr]elixir text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
-[attr]html text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
-[attr]css text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
-[attr]js text eol=lf whitespace=blank-at-eol,-blank-at-eof,tab-in-indent,tabwidth=2
 [attr]make text eol=lf whitespace=blank-at-eol,-blank-at-eof,space-before-tab,-tab-in-indent,tabwidth=2
 
 # Auto-detect text files. Make sure they use LF.
 * text=auto eol=lf
 
-*.{h,hpp,hxx,cc,cpp,cxx} nif
-*.{ex,exs,erl} elixir
-*.{html,vue} html
-*.{css,scss} css
-*.{js,coffee,json} js
-{m,M}akefile make
+*.h nif
+*.hpp nif
+*.hxx nif
+*.c nif
+*.cc nif
+*.cpp nif
+*.cxx nif
+
+*.erl erlang
+*.ex elixir
+*.exs elixir
+
+Makefile make

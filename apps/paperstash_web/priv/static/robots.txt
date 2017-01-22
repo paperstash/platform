@@ -1,0 +1,4 @@
+# Go away!
+
+User-agent: *
+Disallow: *

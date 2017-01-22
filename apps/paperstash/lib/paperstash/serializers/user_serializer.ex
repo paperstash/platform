@@ -5,7 +5,7 @@ defmodule PaperStash.UserSerializer do
   use PaperStash.Serializer
 
   hook :before do
-    PaperStash.Repo.preload(model, ~w(personage)a)
+    PaperStash.Repository.preload(model, ~W{personage}a)
   end
 
   field :portrait, via: &(&1.personage.portrait)

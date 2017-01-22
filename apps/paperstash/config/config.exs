@@ -1,20 +1,21 @@
 use Mix.Config
 
-config :logger, :console,
-  level: :info,
-  format: "$date $time [$level] $metadata$message\n",
-  metadata: []
+config :paperstash,
+  ecto_repos: [PaperStash.Repository]
 
-config :paperstash, PaperStash.Repo,
+config :paperstash, PaperStash.Repository,
+  loggers: [{Ecto.LogEntry, :log, [:info]}],
   adapter: Ecto.Adapters.Postgres,
-  name: PaperStash.Repo,
+  url: {:system, "DATABASE_URL"},
   encoding: "UTF8",
-  log_level: :debug
+  ssl: false,
+  connect_timeout: 5_000,
+  pool_timeout: 5_000,
+  timeout: 30_000,
+  pool_size: 1,
+  priv: "priv/repo"
 
 config :comeonin, Ecto.Password, Comeonin.Bcrypt
 config :comeonin, :bcrypt_log_rounds, 14
-
-config :paperstash, PaperStash.Emailer,
-  adapter: Swoosh.Adapters.Local
 
 import_config "#{Mix.env}.exs"

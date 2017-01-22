@@ -5,18 +5,7 @@
 *.sublime-*
 
 #
-# Frontend
-#
-
-# Ignore dependencies.
-node_modules/
-bower_components/
-
-# Ignore build artifacts.
-apps/paperstash_app/priv/static/assets/
-
-#
-# Backend
+# Erlang and Elixir
 #
 
 # Ignore dependencies.
