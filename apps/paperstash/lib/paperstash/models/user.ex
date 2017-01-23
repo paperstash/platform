@@ -60,7 +60,7 @@ defmodule PaperStash.User do
     # HACK(mtwilliams): Manually cast because Ecto doesn't want to.
     |> put_change(:encrypted_password, encrypt_password(params.password))
     |> validate
-    |> PaperStash.Repo.insert!
+    |> R.insert!
   end
 
   defp validate(user_or_changeset) do
@@ -73,7 +73,7 @@ defmodule PaperStash.User do
 
   # SMELL(mtwilliams): We should extract authentication out...
   def authenticate(email: email, password: password) do
-    case PaperStash.Repo.get_by(PaperStash.User, email: email) do
+    case R.get_by(PaperStash.User, email: email) do
       %PaperStash.User{encrypted_password: expected} = user ->
         if Comeonin.Ecto.Password.valid?(password, expected) do
           {:ok, user}

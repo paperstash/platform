@@ -15,6 +15,8 @@ defmodule PaperStash.Model do
       import Ecto.Query
       import Ecto.Changeset
 
+      alias PaperStash.Repository, as: R
+
       # Use Universally Unique Identifiers (UUIDs) for all the things!
       # Read http://stackoverflow.com/questions/30004008
       @primary_key {:id, :binary_id, autogenerate: true}
