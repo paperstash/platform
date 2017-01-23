@@ -30,6 +30,8 @@ defmodule PaperStash.Web.Router do
   @routes [
     PaperStash.Web.Endpoints.Static,
 
+    PaperStash.Web.Endpoints.Users,
+
     # We expose a status endpoint only after everything else so that if the
     # aforementioned fuck up and break the pipeline, our status endpoint will
     # fail and we will know something is seriously wrong.
