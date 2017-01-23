@@ -2,6 +2,8 @@ defmodule PaperStash.Web.Routes do
   @moduledoc ~S"""
   """
 
+  @config Application.get_env(:paperstash_web, PaperStash.Web.Routes, [])
+
   defmacro __using__(_options) do
     quote do
       require Logger
@@ -32,9 +34,11 @@ defmodule PaperStash.Web.Routes do
     end
   end
 
+  @json_encoder_options pretty: Keyword.get(@config, :pretty, true)
+
   def json(conn, response) do
     conn |> Plug.Conn.put_resp_content_type("application/json")
-         |> Plug.Conn.resp(200, Poison.encode!(response))
+         |> Plug.Conn.resp(200, Poison.encode!(response, @json_encoder_options))
          |> Plug.Conn.halt
   end
 end
