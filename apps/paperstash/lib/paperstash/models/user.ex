@@ -89,4 +89,14 @@ defmodule PaperStash.User do
     {:ok, encrypted} = Comeonin.Ecto.Password.cast(password)
     encrypted
   end
+
+  def follows(%PaperStash.User{id: id} = _user) do
+    PaperStash.Follow.all
+    |> where([f: 0], f.follower_id == ^id)
+  end
+
+  def following(%PaperStash.User{id: id} = _user) do
+    PaperStash.Follow.all
+    |> where([f: 0], f.followee_id == ^id)
+  end
 end

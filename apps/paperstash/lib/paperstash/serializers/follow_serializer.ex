@@ -10,4 +10,12 @@ defmodule PaperStash.FollowSerializer do
 
   embed :follower, PaperStash.UserSerializer
   embed :followee, PaperStash.UserSerializer
+
+  def follow(follow) do
+    Blazon.map(__MODULE__, follow, except: ~W{follower}a)
+  end
+
+  def following(follow) do
+    Blazon.map(__MODULE__, follow, except: ~W{followee}a)
+  end
 end

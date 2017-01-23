@@ -4,6 +4,10 @@ defmodule PaperStash.Web.Endpoints.Users do
 
   use PaperStash.Web.Routes
 
+  alias PaperStash.{User, UserSerializer,
+                    Follow, FollowSerializer,
+                    PageSerializer}
+
   alias PaperStash.Repository, as: R
 
   alias PaperStash.Web.{NotImplementedError}
@@ -21,31 +25,24 @@ defmodule PaperStash.Web.Endpoints.Users do
     raise NotImplementedError
   end
 
-  # TODO(mtwilliams): Pagination.
-
-  # REFACTOR(mtwilliams): Move follower and followee specific serialization
-  # into seperate serializers?
-
-  get "/v1/users/:id/followers" do
-    user = R.get!(User, id)
-        |> R.preload(~W{followers}a)
-
-    serialize = fn (follower) ->
-      Blazon.map(UserSerializer, follower, only: ~W{id portrait name nickname}a)
-    end
-
-    user.followers |> Enum.map(serialize)
+  get "/v1/users/:id/follows" do
+    user = User.get!(id)
+    page = User.follows(user) |> R.paginate!(conn.params)
+    json PageSerializer.map(page, serializer: &FollowSerializer.follow/1)
   end
 
   get "/v1/users/:id/following" do
     user = R.get!(User, id)
-        |> R.preload(~W{followees}a)
+    page = User.following(user) |> R.paginate!(conn.params)
+    json PageSerializer.map(page, serializer: &FollowSerializer.following/1)
+  end
 
-    serialize = fn (followee) ->
-      Blazon.map(UserSerializer, followee, only: ~W{id portrait name nickname}a)
-    end
+  post "/v1/users/:id/follow" do
+    raise NotImplementedError
+  end
 
-    user.followees |> Enum.map(serialize)
+  post "/v1/users/:id/unfollow" do
+    raise NotImplementedError
   end
 
   get "/v1/users/:id/activity" do
