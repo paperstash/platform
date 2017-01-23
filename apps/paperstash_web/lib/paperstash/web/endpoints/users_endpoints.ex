@@ -24,6 +24,7 @@ defmodule PaperStash.Web.Endpoints.Users do
   get "/v1/users/:id/stars" do
     raise NotImplementedError
   end
+
   get "/v1/users/:id/follows" do
     user = User.get!(id)
     page = User.follows(user) |> R.paginate!(conn.params)
