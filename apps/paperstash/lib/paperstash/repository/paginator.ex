@@ -30,7 +30,7 @@ defmodule PaperStash.Repository.Paginator do
       {_, {per, _}} when (per > max_per_page) or (per < min_per_page) ->
         {:error, "Expected `per` to be an integer in [#{min_per_page}, #{max_per_page}]."}
       {{page, _}, {per, _}} ->
-        {:ok, %Scrivener.Config{module: __MODULE__, page_number: page, page_size: per}}
+        {:ok, %Scrivener.Config{module: PaperStash.Repository, page_number: page, page_size: per}}
     end
   end
 
