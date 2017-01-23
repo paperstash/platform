@@ -21,6 +21,8 @@ defmodule PaperStash.Web.Router do
 
   plug Plug.Logger, log: :info
 
+  plug PaperStash.Web.ExpandQueryParameters
+
   plug Plug.Parsers, parsers: [:urlencoded, :multipart, :json],
                      pass: ["application/*", "text/*"],
                      json_decoder: Poison
