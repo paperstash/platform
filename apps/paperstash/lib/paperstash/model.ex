@@ -26,6 +26,24 @@ defmodule PaperStash.Model do
       use Timex
       use Timex.Ecto.Timestamps, inserted_at: :created_at,
                                  updated_at: :updated_at
+
+      def get(id) do
+        try do
+          R.get(__MODULE__, id)
+        rescue
+          Ecto.Query.CastError ->
+            raise ArgumentError, "Invalid identifier!"
+        end
+      end
+
+      def get!(id) do
+        try do
+          R.get!(__MODULE__, id)
+        rescue
+          Ecto.Query.CastError ->
+            raise ArgumentError, "Invalid identifier!"
+        end
+      end
     end
   end
 

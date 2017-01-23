@@ -24,7 +24,6 @@ defmodule PaperStash.Web.Endpoints.Users do
   get "/v1/users/:id/stars" do
     raise NotImplementedError
   end
-
   get "/v1/users/:id/follows" do
     user = User.get!(id)
     page = User.follows(user) |> R.paginate!(conn.params)
@@ -32,7 +31,7 @@ defmodule PaperStash.Web.Endpoints.Users do
   end
 
   get "/v1/users/:id/following" do
-    user = R.get!(User, id)
+    user = User.get!(id)
     page = User.following(user) |> R.paginate!(conn.params)
     json PageSerializer.map(page, serializer: &FollowSerializer.following/1)
   end
