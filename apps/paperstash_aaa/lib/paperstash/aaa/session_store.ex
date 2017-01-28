@@ -41,6 +41,12 @@ defmodule PaperStash.SessionStore do
     GenServer.call(__MODULE__, {:invalidate, id})
   end
 
+  @spec invalidate_for_user(PaperStash.User.t) :: :ok
+  @doc "Invalidates all sessions for a particular `user`."
+  def invalidate_for_user(%PaperStash.User{} = user) do
+    GenServer.call(__MODULE__, {:invalidate_for_user, user.id})
+  end
+
   @doc "Asynchronously prunes expired sessions."
   def vacuum do
     GenServer.cast(__MODULE__, :vacuum)
@@ -71,6 +77,11 @@ defmodule PaperStash.SessionStore do
 
   def handle_call({:invalidate, id}, _, state) do
     :ets.delete(state.table, id)
+    {:reply, :ok, state}
+  end
+
+  def handle_call({:invalidate_for_user, id}, _, state) do
+    :ets.select_delete(state.table, [{{:'_', {%{user: id}, :_}}, [], [true]}])
     {:reply, :ok, state}
   end
 
