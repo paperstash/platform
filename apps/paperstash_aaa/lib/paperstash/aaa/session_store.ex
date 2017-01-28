@@ -52,7 +52,7 @@ defmodule PaperStash.SessionStore do
 
   def init([]) do
     # TODO(mtwilliams): Tune this based on real performance...
-    table = :ets.new(__MODULE__, [:public, :named_table, write_concurrency: true, read_concurrency: true])
+    table = :ets.new(__MODULE__, [:named_table, :protected, write_concurrency: true, read_concurrency: true])
     {:ok, %__MODULE__{table: table}}
   end
 
