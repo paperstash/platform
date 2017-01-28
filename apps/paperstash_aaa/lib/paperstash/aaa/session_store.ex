@@ -43,7 +43,7 @@ defmodule PaperStash.SessionStore do
 
   @doc "Asynchronously prunes expired sessions."
   def vacuum do
-    GenServer.call(__MODULE__, :vacuum)
+    GenServer.cast(__MODULE__, :vacuum)
   end
 
   #
@@ -74,29 +74,14 @@ defmodule PaperStash.SessionStore do
     {:reply, :ok, state}
   end
 
-  def handle_call(:vacuum, _, state) do
-    Task.start_link(fn -> vacuum(state.table) end)
-    {:reply, :ok, state}
+  def handle_cast(:vacuum, state) do
+    now = :os.system_time(:seconds)
+    ms = [{{:"$0", {%{ttl: :"$1"}, :"$2"}},
+           [{:is_integer, :"$1"}, {:is_integer, :"$2"},
+            {:<, {:+, :"$1", :"$2"}, now + 1}], [true]}]
+    :ets.select_delete(state.table, ms)
+    {:noreply, state}
   end
 
   # TODO(mtwilliams): Persist on termination.
-
-  defp vacuum(table), do: vacuum(table, :ets.first(table))
-  defp vacuum(table, :"$end_of_table"), do: :ok
-  defp vacuum(table, session) do
-    case :ets.lookup(table, session) do
-      [{^session, {session, timestamp}}] ->
-        now = :os.system_time(:seconds)
-
-        if (session.ttl + timestamp) >= now do
-          # Expired.
-          :ets.delete(table, session.id)
-        end
-
-      _ ->
-        :ok
-    end
-
-    vacuum(table, :ets.next(table, session))
-  end
 end
