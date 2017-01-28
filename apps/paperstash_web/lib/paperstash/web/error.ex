@@ -7,10 +7,6 @@ defmodule PaperStash.Web.Error do
       alias PaperStash.Web.Error, as: Error
 
       @behaviour Exception
-
-      def message(%Error{details: message}), do: message
-
-      defoverridable message: 1
     end
   end
 
@@ -27,6 +23,8 @@ defmodule PaperStash.Web.Error do
   def exception(details) when is_binary(details) do
     %__MODULE__{opaque: true, code: 500, name: :internal_server_error, details: details}
   end
+
+  def message(%__MODULE__{details: message}), do: message
 
   def message do
     "Something went wrong!"
