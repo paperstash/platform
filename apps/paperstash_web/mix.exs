@@ -36,7 +36,8 @@ defmodule PaperStash.Web.Mixfile do
 
     # Web
     {:cowboy, "~> 1.0"},
-    {:plug, "~> 1.0"}
+    {:plug, "~> 1.0"},
+    {:corsica, ">= 0.0.0"},
   ] end
 
   defp aliases do

@@ -4,17 +4,11 @@ defmodule PaperStash.Web.Endpoints.Static do
 
   use PaperStash.Web.Routes
 
-  @humans File.read!(Path.join(:code.priv_dir(:paperstash_web), "/static/humans.txt"))
-  @robots File.read!(Path.join(:code.priv_dir(:paperstash_web), "/static/robots.txt"))
+  @static :code.priv_dir(:paperstash_web)
 
-  get "/humans.txt", do: message(conn, @humans)
-  get "/robots.txt", do: message(conn, @robots)
+  @humans File.read!(Path.join(@static, "/static/humans.txt"))
+  @robots File.read!(Path.join(@static, "/static/robots.txt"))
 
-  defp message(conn, body) do
-    conn |> Plug.Conn.put_resp_content_type("text/plain")
-         |> Plug.Conn.resp(200, body)
-         |> Plug.Conn.halt
-  end
-
-  fallthrough
+  get "/humans.txt", do: plaintext(@humans)
+  get "/robots.txt", do: plaintext(@robots)
 end

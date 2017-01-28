@@ -1,4 +1,4 @@
 use Mix.Config
 
-config :paperstash_web, PaperStash.Web.Router,
+config :paperstash_web,
   debugger: true

@@ -2,24 +2,25 @@ defmodule PaperStash.Web.Routes do
   @moduledoc ~S"""
   """
 
-  @config Application.get_env(:paperstash_web, PaperStash.Web.Routes, [])
-
   defmacro __using__(_options) do
     quote do
-      require Logger
-      alias Logger, as: L
+      @before_compile PaperStash.Web.Routes
 
       use Plug.Router
-      alias Plug.Conn
 
-      import PaperStash.Web.Routes, only: [fallthrough: 0, json: 1]
+      import PaperStash.Web.Routes, only: [plaintext: 1,
+                                           json: 1,
+                                           paginate: 1, paginate: 2]
+
+      alias PaperStash.Web.{NotImplementedError,
+                            NotSupportedError}
 
       plug :match
       plug :dispatch
     end
   end
 
-  defmacro fallthrough do
+  defmacro __before_compile__(_options) do
     quote do
       match _ do
         # We didn't match. Fall through to our router.
@@ -28,17 +29,31 @@ defmodule PaperStash.Web.Routes do
     end
   end
 
-  defmacro json(response) do
+  # TODO(mtwilliams): Detect `__struct__` and serialize prior to encoding.
+
+  defmacro plaintext(response) do
     quote do
-      PaperStash.Web.Routes.json(var!(conn), unquote(response))
+      PaperStash.Web.Response.plaintext(var!(conn), unquote(response))
     end
   end
 
-  @json_encoder_options pretty: Keyword.get(@config, :pretty, true)
+  defmacro json(response) do
+    quote do
+      PaperStash.Web.Response.json(var!(conn), unquote(response))
+    end
+  end
 
-  def json(conn, response) do
-    conn |> Plug.Conn.put_resp_content_type("application/json")
-         |> Plug.Conn.resp(200, Poison.encode!(response, @json_encoder_options))
-         |> Plug.Conn.halt
+  defmacro paginate(pageable, options \\ []) do
+    quote do
+      PaperStash.Web.Routes.paginate(var!(conn), unquote(pageable), unquote(options))
+    end
+  end
+
+  alias PaperStash.PageSerializer
+
+  def paginate(conn, pageable, options) do
+    page = PaperStash.Web.Pagination.paginate!(conn, pageable, options)
+    response = PageSerializer.map(page, options)
+    response
   end
 end

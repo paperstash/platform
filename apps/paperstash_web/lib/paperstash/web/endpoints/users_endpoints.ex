@@ -4,16 +4,14 @@ defmodule PaperStash.Web.Endpoints.Users do
 
   use PaperStash.Web.Routes
 
-  alias PaperStash.{User, UserSerializer,
-                    Follow, FollowSerializer,
-                    PageSerializer}
-
-  alias PaperStash.Repository, as: R
-
-  alias PaperStash.Web.{NotImplementedError}
+  alias PaperStash.{User, UserSerializer, FollowSerializer}
 
   get "/v1/me" do
     raise NotImplementedError
+  end
+
+  get "/v1/users" do
+    json paginate(User)
   end
 
   get "/v1/users/:id" do
@@ -27,14 +25,12 @@ defmodule PaperStash.Web.Endpoints.Users do
 
   get "/v1/users/:id/follows" do
     user = User.get!(id)
-    page = User.follows(user) |> R.paginate!(conn.params)
-    json PageSerializer.map(page, serializer: &FollowSerializer.follow/1)
+    json paginate(User.follows(user), serializer: &FollowSerializer.follow/1)
   end
 
   get "/v1/users/:id/following" do
     user = User.get!(id)
-    page = User.following(user) |> R.paginate!(conn.params)
-    json PageSerializer.map(page, serializer: &FollowSerializer.following/1)
+    json paginate(User.following(user), serializer: &FollowSerializer.following/1)
   end
 
   post "/v1/users/:id/follow" do
@@ -48,6 +44,4 @@ defmodule PaperStash.Web.Endpoints.Users do
   get "/v1/users/:id/activity" do
     raise NotImplementedError
   end
-
-  fallthrough
 end

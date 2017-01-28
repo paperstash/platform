@@ -4,9 +4,6 @@ defmodule PaperStash.Web.Endpoints.Sessions do
 
   use PaperStash.Web.Routes
 
-  alias PaperStash.Web.{NotImplementedError,
-                        NotSupportedError}
-
   post "/login/via/credentials" do
     # case {Map.get(conn.params, "email"), Map.get(conn.params, "password")} do
     #   {nil, _} ->
@@ -48,6 +45,4 @@ defmodule PaperStash.Web.Endpoints.Sessions do
   post "/logout" do
     raise NotImplementedError
   end
-
-  fallthrough
 end

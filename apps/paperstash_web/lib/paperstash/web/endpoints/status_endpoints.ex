@@ -4,17 +4,16 @@ defmodule PaperStash.Web.Endpoints.Status do
 
   use PaperStash.Web.Routes
 
+  @environment Mix.env
+  @version Mix.Project.config[:version]
+
   get "/v1/status" do
-    # CHORE(mtwilliams): Move into config as this is not available when
-    # producing releases.
     json %{
-      environment: Mix.env,
+      environment: @environment,
       node: Node.self,
-      version: Mix.Project.config[:version],
+      version: @version,
       status: :healthy,
       time: :os.system_time(:seconds)
     }
   end
-
-  fallthrough
 end

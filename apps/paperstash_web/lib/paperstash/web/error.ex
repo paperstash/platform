@@ -2,12 +2,24 @@ defmodule PaperStash.Web.Error do
   @moduledoc """
   """
 
+  defmacro __using__(_options) do
+    quote do
+      alias PaperStash.Web.Error, as: Error
+
+      @behaviour Exception
+
+      def message(%Error{details: message}), do: message
+
+      defoverridable message: 1
+    end
+  end
+
   @type opaqueness :: boolean
   @type code :: non_neg_integer
   @type name :: atom
   @type details :: String.t
 
-  defexception opaque: true,
+  defexception opaque: false,
                code: nil,
                name: nil,
                details: nil

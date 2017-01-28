@@ -1,8 +1,7 @@
 use Mix.Config
 
-config :paperstash_web, PaperStash.Web.Router,
-  port: 80
+config :paperstash_web,
+  port: 80,
 
-config :paperstash_web, PaperStash.Web.Routes,
-  # Don't generate pretty responses.
+  # Don't generate pretty responses unless asked.
   pretty: false
