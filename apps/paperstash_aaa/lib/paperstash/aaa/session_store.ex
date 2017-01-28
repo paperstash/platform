@@ -8,11 +8,15 @@ defmodule PaperStash.SessionStore do
   # Client
   #
 
+  @spec create(PaperStash.User.t) :: {:ok, PaperStash.Session.id} | no_return
+  @doc "Synchronously creates a new session for `user`."
   def create(%PaperStash.User{} = user) do
     {:ok, id} = GenServer.call(__MODULE__, {:create, user.id})
     id
   end
 
+  @spec find(PaperStash.Session.id) :: Session.t | nil
+  @doc "Looks up a session with `id."
   def find(id) do
     case :ets.lookup(__MODULE__, id) do
       [{^id, {session, timestamp}}] ->
@@ -30,7 +34,9 @@ defmodule PaperStash.SessionStore do
     end
   end
 
-  # TODO(mtwilliams): Allow invalidation of all sessions for a particular user.
+
+  @spec invalidate(PaperStash.Session.id) :: :ok
+  @doc "Invalidates a session with `id`."
   def invalidate(id) do
     GenServer.call(__MODULE__, {:invalidate, id})
   end
