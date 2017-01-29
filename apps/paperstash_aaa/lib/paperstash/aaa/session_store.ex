@@ -8,11 +8,11 @@ defmodule PaperStash.SessionStore do
   # Client
   #
 
-  @spec create(PaperStash.User.t) :: {:ok, PaperStash.Session.id} | no_return
+  @spec create(PaperStash.User.t) :: {:ok, PaperStash.Session.t} | no_return
   @doc "Synchronously creates a new session for `user`."
   def create(%PaperStash.User{} = user) do
-    {:ok, id} = GenServer.call(__MODULE__, {:create, user.id})
-    id
+    {:ok, session} = GenServer.call(__MODULE__, {:create, user.id})
+    session
   end
 
   @spec find(PaperStash.Session.id) :: Session.t | nil
@@ -72,7 +72,7 @@ defmodule PaperStash.SessionStore do
     now = :os.system_time(:seconds)
     session = PaperStash.Session.new(user)
     :ets.insert(state.table, {session.id, {session, now}})
-    {:reply, {:ok, session.id}, state}
+    {:reply, {:ok, session}, state}
   end
 
   def handle_call({:invalidate, id}, _, state) do
