@@ -33,6 +33,7 @@ defmodule PaperStash.Web.Mixfile do
   defp deps do [
     # Umbrella
     {:paperstash, in_umbrella: true},
+    {:paperstash_aaa, in_umbrella: true},
 
     # Web
     {:cowboy, "~> 1.0"},
