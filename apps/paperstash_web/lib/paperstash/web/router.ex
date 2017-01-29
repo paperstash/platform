@@ -5,20 +5,7 @@ defmodule PaperStash.Web.Router do
   require Logger
   alias Logger, as: L
 
-  use Plug.Builder
-
   @config Application.get_all_env(:paperstash_web) |> Map.new
-
-  # We assign an request identifier as soon as possible to making tracking
-  # issues easier. We also make sure to do so before `Plug.Logger` is called,
-  # otherwise its messages aren't tied to their respective requests.
-  plug PaperStash.Web.RequestIdentifier
-
-  plug Corsica, origins: "*",
-                allow_credentials: true,
-                allow_headers: ~W{Accept Accept-Language Content-Type Content-Language},
-                allow_methods: ~W{OPTIONS HEAD GET POST PUT PATCH DELETE LINK UNLINK},
-                max_age: 60
 
   if Application.get_env(:paperstash_web, :debugger, false) do
     # TODO(mtwilliams): Specify `PLUG_EDITOR`.
@@ -30,18 +17,15 @@ defmodule PaperStash.Web.Router do
       do: PaperStash.Web.ErrorHandler.handle(conn, error)
   end
 
-  plug Plug.Logger, log: :info
-
-  # We always fetch query parameters and parse request bodies upfront.
-
-  plug PaperStash.Web.FetchQueryParameters
-
-  plug Plug.Parsers, parsers: [:urlencoded, :multipart, :json],
-                     pass: ["application/*", "text/*"],
-                     json_decoder: Poison
+  # HACK(mtwilliams): Middleware is run before our error handlers so certain
+  # functionality is retained for `PaperStash.Web.ErrorHandler`.
+  use PaperStash.Web.Middleware
 
   @routes [
     PaperStash.Web.Endpoints.Static,
+
+    PaperStash.Web.Endpoints.Sessions,
+    PaperStash.Web.Endpoints.OAuth2,
 
     PaperStash.Web.Endpoints.Users,
 
@@ -65,8 +49,6 @@ defmodule PaperStash.Web.Router do
   end
 
   def call(conn, {options, options_for_routes}) do
-    conn = super(conn, options)
-
     case try_route(conn, options_for_routes, @routes) do
       %Plug.Conn{state: state} = conn when state in ~W{sent file chunked}a ->
         conn

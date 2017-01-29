@@ -38,7 +38,8 @@ defmodule PaperStash.Web.RequestIdentifier do
 
   defp set_request_identifier({conn, identifier}, header) do
     L.metadata(request: identifier)
-    Conn.put_resp_header(conn, header, identifier)
+    conn |> Conn.put_resp_header(header, identifier)
+         |> Conn.put_private(:id, identifier)
   end
 
   defp generate_request_identifier do
