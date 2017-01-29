@@ -11,11 +11,13 @@ defmodule PaperStash.Web.Endpoints.Users do
   end
 
   get "/v1/users" do
+    authorize! :read, User
     json paginate(User)
   end
 
   get "/v1/users/:id" do
     user = User.get!(id)
+    authorize! :read, user
     json Blazon.map(UserSerializer, user)
   end
 
@@ -25,11 +27,13 @@ defmodule PaperStash.Web.Endpoints.Users do
 
   get "/v1/users/:id/follows" do
     user = User.get!(id)
+    authorize! :read, user
     json paginate(User.follows(user), serializer: &FollowSerializer.follow/1)
   end
 
   get "/v1/users/:id/following" do
     user = User.get!(id)
+    authorize! :read, user
     json paginate(User.following(user), serializer: &FollowSerializer.following/1)
   end
 

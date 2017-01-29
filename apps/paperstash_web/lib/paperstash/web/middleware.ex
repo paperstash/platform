@@ -26,6 +26,10 @@ defmodule PaperStash.Web.Middleware do
                      pass: ["application/*", "text/*"],
                      json_decoder: Poison
 
+  # Check and validate authentication if provided.
+
+  plug PaperStash.Web.Middleware.Authentication
+
   # Injection helpers. See `PaperStash.Web.Router`.
 
   defmacro __using__(_options) do

@@ -8,12 +8,14 @@ defmodule PaperStash.Web.Routes do
 
       use Plug.Router
 
-      import PaperStash.Web.Routes, only: [plaintext: 1, plaintext: 2,
+      import PaperStash.Web.Routes, only: [authorize!: 2, authorized?: 2,
+                                           plaintext: 1, plaintext: 2,
                                            json: 1, json: 2,
                                            paginate: 1, paginate: 2]
 
       alias PaperStash.Web.{NotImplementedError,
-                            NotSupportedError}
+                            NotSupportedError,
+                            UnauthorizedError}
 
       plug :match
       plug :dispatch
@@ -26,6 +28,18 @@ defmodule PaperStash.Web.Routes do
         # We didn't match. Fall through to our router.
         var!(conn)
       end
+    end
+  end
+
+  defmacro authorize!(action, resource) do
+    quote do
+      PaperStash.Web.Helpers.Authorization.authorize!(var!(conn), unquote(action), unquote(resource))
+    end
+  end
+
+  defmacro authorized?(action, resource) do
+    quote do
+      PaperStash.Web.Helpers.Authorization.authorized?(var!(conn), unquote(action), unquote(resource))
     end
   end
 
