@@ -8,7 +8,7 @@ defmodule PaperStash.Web.Middleware do
   # issues easier. We also make sure to do so before `Plug.Logger` is called,
   # otherwise its messages aren't tied to their respective requests.
 
-  plug PaperStash.Web.RequestIdentifier
+  plug PaperStash.Web.Middleware.RequestIdentifier
 
   plug Corsica, origins: "*",
                 allow_credentials: true,
@@ -20,7 +20,7 @@ defmodule PaperStash.Web.Middleware do
 
   # We always fetch query parameters and parse request bodies upfront.
 
-  plug PaperStash.Web.FetchQueryParameters
+  plug PaperStash.Web.Middleware.FetchQueryParameters
 
   plug Plug.Parsers, parsers: [:urlencoded, :multipart, :json],
                      pass: ["application/*", "text/*"],

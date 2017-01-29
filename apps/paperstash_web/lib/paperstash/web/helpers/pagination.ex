@@ -1,4 +1,4 @@
-defmodule PaperStash.Web.Pagination do
+defmodule PaperStash.Web.Helpers.Pagination do
   @moduledoc ~S"""
   """
 

@@ -1,4 +1,4 @@
-defmodule PaperStash.Web.Response do
+defmodule PaperStash.Web.Helpers.Response do
   @moduledoc ~S"""
   """
 

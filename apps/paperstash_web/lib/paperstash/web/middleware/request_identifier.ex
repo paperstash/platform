@@ -1,4 +1,4 @@
-defmodule PaperStash.Web.RequestIdentifier do
+defmodule PaperStash.Web.Middleware.RequestIdentifier do
   @moduledoc ~S"""
   Our version of `Plug.RequestId` that only accepts UUIDs.
   """

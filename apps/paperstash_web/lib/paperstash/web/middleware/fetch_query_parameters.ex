@@ -1,4 +1,4 @@
-defmodule PaperStash.Web.FetchQueryParameters do
+defmodule PaperStash.Web.Middleware.FetchQueryParameters do
   @moduledoc ~S"""
   Always fetches query parameters.
   """

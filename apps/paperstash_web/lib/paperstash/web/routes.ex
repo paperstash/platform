@@ -33,25 +33,25 @@ defmodule PaperStash.Web.Routes do
 
   defmacro plaintext(status, response) do
     quote do
-      PaperStash.Web.Response.plaintext(var!(conn), unquote(status), unquote(response))
+      PaperStash.Web.Helpers.Response.plaintext(var!(conn), unquote(status), unquote(response))
     end
   end
 
   defmacro plaintext(response) do
     quote do
-      PaperStash.Web.Response.plaintext(var!(conn), unquote(response))
+      PaperStash.Web.Helpers.Response.plaintext(var!(conn), unquote(response))
     end
   end
 
   defmacro json(status, response) do
     quote do
-      PaperStash.Web.Response.json(var!(conn), unquote(status), unquote(response))
+      PaperStash.Web.Helpers.Response.json(var!(conn), unquote(status), unquote(response))
     end
   end
 
   defmacro json(response) do
     quote do
-      PaperStash.Web.Response.json(var!(conn), unquote(response))
+      PaperStash.Web.Helpers.Response.json(var!(conn), unquote(response))
     end
   end
 
@@ -64,7 +64,7 @@ defmodule PaperStash.Web.Routes do
   alias PaperStash.PageSerializer
 
   def paginate(conn, pageable, options) do
-    page = PaperStash.Web.Pagination.paginate!(conn, pageable, options)
+    page = PaperStash.Web.Helpers.Pagination.paginate!(conn, pageable, options)
     response = PageSerializer.map(page, options)
     response
   end
